@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+
+<body>
+
+  <section class="workspace-hero" data-testid="dashboard-hero">
+    <div>
+      <div class="workspace-eyebrow">01 / Clinic overview</div>
+      <h1 class="workspace-title">Clinic operations, clearly in view.</h1>
+      <p class="workspace-copy">A dependable workspace for owner records, pet care, visits, and database-backed workflows.</p>
+    </div>
+    <div class="environment-status" data-testid="environment-status">
+      <i class="fa fa-database" aria-hidden="true"></i>
+      <span>Connected profile</span>
+      <strong th:text="${#strings.isEmpty(activeProfile) ? 'default' : activeProfile}">default</strong>
+    </div>
+  </section>
+
+  <section class="metric-grid" aria-label="Clinic records">
+    <a class="metric-card" data-testid="metric-owners" th:href="@{/owners/find}">
+      <span class="metric-index">01</span>
+      <div class="metric-label" th:text="#{ownerSummary}">Owner registry</div>
+      <div class="metric-value" th:text="${ownerCount}">0</div>
+      <i class="fa fa-users metric-icon" aria-hidden="true"></i>
+    </a>
+    <a class="metric-card" data-testid="metric-pets" th:href="@{/owners/find}">
+      <span class="metric-index">02</span>
+      <div class="metric-label" th:text="#{petSummary}">Pet records</div>
+      <div class="metric-value" th:text="${petCount}">0</div>
+      <i class="fa fa-paw metric-icon" aria-hidden="true"></i>
+    </a>
+    <a class="metric-card" data-testid="metric-vets" th:href="@{/vets.html}">
+      <span class="metric-index">03</span>
+      <div class="metric-label" th:text="#{vetSummary}">Vet directory</div>
+      <div class="metric-value" th:text="${vetCount}">0</div>
+      <i class="fa fa-stethoscope metric-icon" aria-hidden="true"></i>
+    </a>
+    <a class="metric-card" data-testid="metric-visits" th:href="@{/owners/find}">
+      <span class="metric-index">04</span>
+      <div class="metric-label" th:text="#{visitSummary}">Appointments</div>
+      <div class="metric-value" th:text="${visitCount}">0</div>
+      <i class="fa fa-calendar metric-icon" aria-hidden="true"></i>
+    </a>
+  </section>
+
+  <section class="workspace-columns">
+    <div class="workspace-panel">
+      <div class="panel-kicker">02 / Workflow entry points</div>
+      <h2 class="panel-heading"><span>Move through the clinic</span><i class="fa fa-arrow-right" aria-hidden="true"></i></h2>
+      <div class="workflow-list">
+        <a class="workflow-link" data-testid="action-find-owner" th:href="@{/owners/find}">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          <span>Find an owner<small>Exercise search results and navigation</small></span>
+        </a>
+        <a class="workflow-link" data-testid="action-add-owner" th:href="@{/owners/new}">
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          <span>Create an owner<small>Validate required fields and persisted data</small></span>
+        </a>
+        <a class="workflow-link" data-testid="action-vet-directory" th:href="@{/vets.html}">
+          <i class="fa fa-stethoscope" aria-hidden="true"></i>
+          <span>Browse the vet directory<small>Verify table data and responsive pagination</small></span>
+        </a>
+      </div>
+    </div>
+    <aside class="workspace-panel">
+      <div class="panel-kicker">03 / Runtime confidence</div>
+      <h2 class="panel-heading"><span>Ready for verification</span><i class="fa fa-heartbeat" aria-hidden="true"></i></h2>
+      <div class="test-note">
+        Use a unique last name in UI tests, then verify the created owner, pet, or visit through JDBC.
+      </div>
+      <p class="workspace-copy" style="font-size: 0.85rem; margin-top: 18px;">Application health is available at <a class="health-link" data-testid="action-health" th:href="@{/actuator/health}">/actuator/health</a>.</p>
+    </aside>
+  </section>
+
+</body>
+
+</html>

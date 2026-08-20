@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'login')}">
+
+<body>
+  <main class="auth-shell">
+    <section class="auth-panel" aria-labelledby="login-title">
+      <div class="auth-kicker">PawTrack access</div>
+      <h1 id="login-title">Welcome back</h1>
+      <p class="auth-copy">Sign in to continue to your clinic workspace.</p>
+      <div class="auth-success" th:if="${param.registered}">Your account was created. You can sign in now.</div>
+      <div class="auth-error" th:if="${loginError}" th:text="${loginError}"></div>
+      <form th:action="@{/login}" th:object="${loginForm}" method="post" class="auth-form">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" th:field="*{email}" autocomplete="email" required>
+        <small class="field-error" th:errors="*{email}"></small>
+
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" th:field="*{password}" autocomplete="current-password" required>
+        <small class="field-error" th:errors="*{password}"></small>
+
+        <button class="auth-button" type="submit"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign in</button>
+      </form>
+      <p class="auth-footer">New to PawTrack? <a th:href="@{/register}">Create an account</a></p>
+    </section>
+  </main>
+</body>
+
+</html>

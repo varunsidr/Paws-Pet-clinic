@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+
+<body>
+
+  <div class="container-fluid xd-container">
+    <div class="row">
+      <div class="col-12">
+        <div style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; color: white; box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);">
+          <h2 style="margin: 0; font-weight: 800; font-size: 2rem; display: flex; align-items: center; gap: 12px;">
+            <i class="fa fa-users" style="font-size: 1.8rem;"></i>
+            <span th:text="#{owners}">Pet Owners</span>
+          </h2>
+          <p style="margin: 0.5rem 0 0 0; opacity: 0.95; font-size: 1rem;">Manage and view all pet owners in the system</p>
+        </div>
+
+        <div style="background: white; border-radius: 16px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12); overflow: hidden; border: 1px solid #e2e8f0;">
+          <table id="owners" class="table table-hover" style="margin-bottom: 0;">
+            <thead style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-bottom: 2px solid #e2e8f0;">
+              <tr>
+                <th style="padding: 1.2rem 1.5rem; font-weight: 700; color: #0f172a; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; width: 200px;">
+                  <i class="fa fa-user-circle" style="margin-right: 8px; color: #06b6d4;"></i>
+                  <span th:text="#{name}">Name</span>
+                </th>
+                <th style="padding: 1.2rem 1.5rem; font-weight: 700; color: #0f172a; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em; width: 220px;">
+                  <i class="fa fa-map-marker" style="margin-right: 8px; color: #06b6d4;"></i>
+                  <span th:text="#{address}">Address</span>
+                </th>
+                <th style="padding: 1.2rem 1.5rem; font-weight: 700; color: #0f172a; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em;">
+                  <i class="fa fa-building" style="margin-right: 8px; color: #06b6d4;"></i>
+                  <span th:text="#{city}">City</span>
+                </th>
+                <th style="padding: 1.2rem 1.5rem; font-weight: 700; color: #0f172a; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em;">
+                  <i class="fa fa-phone" style="margin-right: 8px; color: #06b6d4;"></i>
+                  <span th:text="#{telephone}">Telephone</span>
+                </th>
+                <th style="padding: 1.2rem 1.5rem; font-weight: 700; color: #0f172a; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em;">
+                  <i class="fa fa-paw" style="margin-right: 8px; color: #06b6d4;"></i>
+                  <span th:text="#{pets}">Pets</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="owner : ${listOwners}" style="border-bottom: 1px solid #e2e8f0; transition: all 0.2s ease;">
+                <td style="padding: 1.2rem 1.5rem; font-weight: 600; color: #0f172a;">
+                  <a th:href="@{/owners/__${owner.id}__}" th:text="${owner.firstName + ' ' + owner.lastName}" style="color: #06b6d4; text-decoration: none; font-weight: 600; transition: all 0.2s;" onmouseover="this.style.color='#0891b2'; this.style.textDecoration='underline';" onmouseout="this.style.color='#06b6d4'; this.style.textDecoration='none';"></a>
+                </td>
+                <td style="padding: 1.2rem 1.5rem; color: #64748b;" th:text="${owner.address}"></td>
+                <td style="padding: 1.2rem 1.5rem; color: #64748b;" th:text="${owner.city}"></td>
+                <td style="padding: 1.2rem 1.5rem; color: #64748b;" th:text="${owner.telephone}"></td>
+                <td style="padding: 1.2rem 1.5rem; color: #64748b;">
+                  <span th:text="${#strings.listJoin(owner.pets, ', ')}"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:if="${totalPages > 1}" style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 1rem; justify-content: center;">
+    <span style="font-weight: 600; color: #0f172a;" th:text="#{pages}">Pages:</span>
+    <div style="display: flex; gap: 0.5rem; align-items: center;">
+      <a th:if="${currentPage > 1}" th:href="@{'/owners?page=1'}" th:title="#{first}" style="padding: 0.5rem 0.7rem; border-radius: 6px; background: #f1f5f9; color: #06b6d4; border: 1px solid #e2e8f0; transition: all 0.2s;" class="fa fa-fast-backward"></a>
+      <span th:unless="${currentPage > 1}" style="padding: 0.5rem 0.7rem; color: #cbd5e1; cursor: not-allowed;" class="fa fa-fast-backward"></span>
+
+      <a th:if="${currentPage > 1}" th:href="@{'/owners?page=__${currentPage - 1}__'}" th:title="#{previous}" style="padding: 0.5rem 0.7rem; border-radius: 6px; background: #f1f5f9; color: #06b6d4; border: 1px solid #e2e8f0; transition: all 0.2s;" class="fa fa-step-backward"></a>
+      <span th:unless="${currentPage > 1}" style="padding: 0.5rem 0.7rem; color: #cbd5e1; cursor: not-allowed;" class="fa fa-step-backward"></span>
+    </div>
+    <div style="display: flex; gap: 0.3rem; flex-wrap: wrap; justify-content: center;">
+      <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+        <a th:if="${currentPage != i}" th:href="@{'/owners?page=' + ${i}}" style="padding: 0.5rem 0.8rem; border-radius: 6px; background: #f1f5f9; color: #06b6d4; border: 1px solid #e2e8f0; text-decoration: none; font-weight: 600; transition: all 0.2s;">[[${i}]]</a>
+        <span th:unless="${currentPage != i}" style="padding: 0.5rem 0.8rem; border-radius: 6px; background: #06b6d4; color: white; font-weight: 700;">[[${i}]]</span>
+      </span>
+    </div>
+    <div style="display: flex; gap: 0.5rem; align-items: center;">
+      <a th:if="${currentPage < totalPages}" th:href="@{'/owners?page=__${currentPage + 1}__'}" th:title="#{next}" style="padding: 0.5rem 0.7rem; border-radius: 6px; background: #f1f5f9; color: #06b6d4; border: 1px solid #e2e8f0; transition: all 0.2s;" class="fa fa-step-forward"></a>
+      <span th:unless="${currentPage < totalPages}" style="padding: 0.5rem 0.7rem; color: #cbd5e1; cursor: not-allowed;" class="fa fa-step-forward"></span>
+
+      <a th:if="${currentPage < totalPages}" th:href="@{'/owners?page=__${totalPages}__'}" th:title="#{last}" style="padding: 0.5rem 0.7rem; border-radius: 6px; background: #f1f5f9; color: #06b6d4; border: 1px solid #e2e8f0; transition: all 0.2s;" class="fa fa-fast-forward"></a>
+      <span th:unless="${currentPage < totalPages}" style="padding: 0.5rem 0.7rem; color: #cbd5e1; cursor: not-allowed;" class="fa fa-fast-forward"></span>
+    </div>
+  </div>
+</body>
+
+</html>

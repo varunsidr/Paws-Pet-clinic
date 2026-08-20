@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'register')}">
+
+<body>
+  <main class="auth-shell">
+    <section class="auth-panel" aria-labelledby="register-title">
+      <div class="auth-kicker">PawTrack access</div>
+      <h1 id="register-title">Create your account</h1>
+      <p class="auth-copy">Set up an account for your clinic workflow.</p>
+      <div class="auth-error" th:if="${registrationError}" th:text="${registrationError}"></div>
+      <form th:action="@{/register}" th:object="${registrationForm}" method="post" class="auth-form">
+        <label for="register-name">Full name</label>
+        <input id="register-name" type="text" th:field="*{fullName}" autocomplete="name" required>
+        <small class="field-error" th:errors="*{fullName}"></small>
+
+        <label for="register-email">Email</label>
+        <input id="register-email" type="email" th:field="*{email}" autocomplete="email" required>
+        <small class="field-error" th:errors="*{email}"></small>
+
+        <label for="register-password">Password</label>
+        <input id="register-password" type="password" th:field="*{password}" autocomplete="new-password" minlength="6" required>
+        <small class="field-error" th:errors="*{password}"></small>
+
+        <button class="auth-button" type="submit"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</button>
+      </form>
+      <p class="auth-footer">Already registered? <a th:href="@{/login}">Sign in</a></p>
+    </section>
+  </main>
+</body>
+
+</html>
