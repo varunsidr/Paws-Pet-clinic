@@ -4,7 +4,7 @@
 [![Gradle build](https://github.com/varunsidr/Paws-Pet-clinic/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/varunsidr/Paws-Pet-clinic/actions/workflows/gradle-build.yml)
 
 <p align="center">
-	<img src="src/main/resources/static/resources/images/pets.png" alt="A puppy and kitten representing Paws Pet Clinic" width="360">
+	<img src="src/main/resources/static/resources/images/Find_Owners.png" alt="Paws Pet Clinic Find Owners page" width="900">
 </p>
 
 Paws Pet Clinic is a Spring Boot application for managing daily veterinary clinic work. It provides a focused operations dashboard for owner records, pet profiles, visits, and the veterinary team.
